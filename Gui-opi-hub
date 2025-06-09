@@ -1,0 +1,161 @@
+local plr = game.Players.LocalPlayer
+local cg = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+
+local function sfx()
+    local s = Instance.new("Sound", game.Workspace)
+    local ids = {4601634822, 4601635211}
+    s.SoundId = "rbxassetid://" .. ids[math.random(1, #ids)]
+    s.Volume = 5
+    s:Play()
+    game.Debris:AddItem(s, 2)
+end
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "OpiV1UI"
+gui.ResetOnSpawn = false
+gui.Parent = cg
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 360, 0, 120)
+frame.Position = UDim2.new(0.05, 0, 0.2, 0)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.Active = true
+frame.Draggable = true
+frame.BorderSizePixel = 0
+frame.BackgroundTransparency = 0
+local uic = Instance.new("UICorner", frame)
+uic.CornerRadius = UDim.new(0, 14)
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, -50, 0, 35)
+title.Position = UDim2.new(0, 10, 0, 5)
+title.Text = "Opi V1 Click X to close UI"
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(20, 20, 20)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+local closeBtn = Instance.new("TextButton", frame)
+closeBtn.Size = UDim2.new(0, 35, 0, 35)
+closeBtn.Position = UDim2.new(1, -40, 0, 5)
+closeBtn.Text = "✕"
+closeBtn.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+closeBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 20
+closeBtn.BorderSizePixel = 0
+local uic3 = Instance.new("UICorner", closeBtn)
+uic3.CornerRadius = UDim.new(0, 8)
+
+local scroll = Instance.new("ScrollingFrame", frame)
+scroll.Size = UDim2.new(1, -20, 0, 0)
+scroll.Position = UDim2.new(0, 10, 0, 45)
+scroll.ScrollBarThickness = 6
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.BackgroundTransparency = 1
+
+local grid = Instance.new("UIGridLayout", scroll)
+grid.CellSize = UDim2.new(0, 160, 0, 50)
+grid.CellPadding = UDim2.new(0, 10, 0, 10)
+grid.SortOrder = Enum.SortOrder.LayoutOrder
+
+local function updateFrameSize()
+    local contentHeight = grid.AbsoluteContentSize.Y
+    local newHeight = math.clamp(contentHeight + 60, 120, 420)
+    frame.Size = UDim2.new(0, 360, 0, newHeight)
+    scroll.Size = UDim2.new(1, -20, 0, newHeight - 55)
+    scroll.CanvasSize = UDim2.new(0, 0, 0, contentHeight)
+end
+
+local function createButton(text, callback)
+    local btn = Instance.new("TextButton", scroll)
+    btn.Text = text
+    btn.Size = UDim2.new(0, 160, 0, 50)
+    btn.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
+    btn.TextColor3 = Color3.fromRGB(20, 20, 20)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 16
+    btn.BorderSizePixel = 0
+    local uicb = Instance.new("UICorner", btn)
+    uicb.CornerRadius = UDim.new(0, 8)
+    btn.MouseButton1Click:Connect(function()
+        sfx()
+        callback()
+    end)
+    updateFrameSize()
+end
+
+-- ฟังก์ชั่นเดิม
+createButton("Anti-Cheat", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Roblox-HttpSpy/Random-Silly-stuff/refs/heads/main/UW2-AnticheatBypasser.lua"))()
+end)
+
+createButton("Heal Player", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/DSHBenjamin/Heal-player-gui/refs/heads/main/HEAL-PLAYER"))()
+end)
+
+createButton("Teleport UI", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/DSHBenjamin/Teleport/refs/heads/main/Teleport-team"))()
+end)
+
+createButton("Aimbot", function()
+    getgenv().TargetTeamName = "Red"
+    getgenv().cooldown = 0
+    getgenv().bulletSpeed = 49.5
+    getgenv().minPredictionDistance = 0
+    getgenv().maxPredictionDistance = 10
+    getgenv().lastShotTime = 0
+    loadstring(game:HttpGet("https://pastebin.com/raw/g05mEMLH"))()
+end)
+
+createButton("Sword Hitbox", function()
+    loadstring(game:HttpGet("https://pastefy.app/unXq4J5u/raw"))()
+end)
+
+createButton("Credit", function()
+    sfx()
+    setclipboard("@DunbeiBenjaminopq")
+end)
+
+-- ฟังก์ชั่นใหม่
+createButton("Auto Jump", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/DSHBenjamin/3uc/refs/heads/main/Auto-jump"))()
+end)
+
+createButton("DASH", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/DSHBenjamin/Dery/refs/heads/main/Opij"))()
+end)
+
+local openBtn = Instance.new("TextButton", gui)
+openBtn.Size = UDim2.new(0, 60, 0, 60)
+openBtn.Position = UDim2.new(0.08, 0, 0.8, 0)
+openBtn.Text = "Open"
+openBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+openBtn.BackgroundTransparency = 0.4
+openBtn.Visible = false
+openBtn.Active = true
+openBtn.Draggable = true
+openBtn.BorderSizePixel = 0
+local openUIC = Instance.new("UICorner", openBtn)
+openUIC.CornerRadius = UDim.new(1, 0)
+local openStroke = Instance.new("UIStroke", openBtn)
+openStroke.Thickness = 1.2
+openStroke.Color = Color3.fromRGB(100, 100, 100)
+
+openBtn.MouseButton1Click:Connect(function()
+    sfx()
+    frame.Visible = true
+    openBtn.Visible = false
+    frame.BackgroundTransparency = 1
+    local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local goal = {BackgroundTransparency = 0}
+    TweenService:Create(frame, tweenInfo, goal):Play()
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+    sfx()
+    frame.Visible = false
+    openBtn.Visible = true
+end)
