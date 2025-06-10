@@ -116,7 +116,7 @@ end)
 
 createButton("Credit", function()
     sfx()
-    setclipboard("@DunbeiBenjaminopq")
+    setclipboard("@hnr-45iuu")
 end)
 
 -- ฟังก์ชั่นใหม่
